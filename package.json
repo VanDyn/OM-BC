@@ -1,0 +1,25 @@
+{
+  "name": "om-bc",
+  "version": "1.0.0",
+  "description": "An Open Market for MRS Secured by Blockchain",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VanDyn/OM-BC.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VanDyn/OM-BC/issues"
+  },
+  "homepage": "https://github.com/VanDyn/OM-BC#readme",
+  "dependencies": {
+    "ganache-cli": "^6.2.5",
+    "mocha": "^5.2.0",
+    "solc": "^0.4.25",
+    "web3": "^1.0.0-beta.35"
+  }
+}
