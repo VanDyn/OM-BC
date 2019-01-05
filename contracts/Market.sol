@@ -24,19 +24,19 @@ contract Market {
     
     //Add a contract to the market for auction
     //this function will eventually become payable
-    function addContract(uint _x, uint _y, uint _z) public {
+    function addContract(uint _x, uint _y, uint _z, address _auction) public {
         
-        var liveContract = contracts[msg.sender];
+        // var liveContract = contracts[msg.sender];
         
-        liveContract.x = _x;
-        liveContract.y = _y;
-        liveContract.z = _z;
+        // liveContract.x = _x;
+        // liveContract.y = _y;
+        // liveContract.z = _z;
         
         //Use contract owners address to reference job
-        contractAddresses.push(msg.sender);
+        contractAddresses.push(_auction);
         
-        //This should be changed to 
-        sendToAuction(_x,_y,_z);
+
+       //sendToAuction(_x,_y,_z,_auction);
     }
     
     //Return all contract addresses
@@ -45,17 +45,26 @@ contract Market {
     }
     
     //Returns index contract by address
-    function getContract(address _address) view public returns (uint, uint, uint){
-        return (contracts[_address].x, contracts[_address].y, contracts[_address].z);
+    function getContract(address _address) view public returns (uint){
+        //return (contracts[_address].x, contracts[_address].y, contracts[_address].z);
+        return (contracts[_address].x);
     }
     
     
-    function sendToAuction(uint _x, uint _y, uint _z) private {
+    function sendToAuction(uint _x, uint _y, uint _z, address _auction) private {
+        
+        Auctioneer auc = Auctioneer(_auction);
+        auc.auctionJob();
+        
+    }
+    
+    // To be implemented when cost function implemented
+    /*  function sendToAuction(uint _x, uint _y, uint _z) private {
         
         Auctioneer auc = new Auctioneer();
         auc.auctionJob(_x,_y,_z);
         
-    }
+    }*/
     
      
 }
@@ -63,27 +72,17 @@ contract Market {
 
 contract Auctioneer {
     
-    struct Agent {
-        uint costFunction;
-    }
+
     
-    Agent[] public agents;
+    function addAgents(uint _cost_function) public;
+    function auctionJob() public view returns (uint);
     
-    function Auctioneer() public {
-        
-    }
-    
-    function addAgents(uint _cost_function) public {
-        agents.push(Agent(_cost_function));
-    }
-    
-    function auctionJob(uint _x, uint _y, uint _z) public returns (uint) {
+    //Tobe implemented when actual cost function
+    /* function auctionJob(uint _x, uint _y, uint _z) public returns (uint) {
         return retrieveBids();
-    }
+    }*/
     
-    function retrieveBids() private returns (uint){
-        return agents[0].costFunction;
-    }
-    
+    function retrieveBids() private view returns (uint);
     
 }
+
